@@ -1,0 +1,43 @@
+import Loader from 'components/Loader/Loader';
+import MoviesList from 'components/MoviesList/MoviesList';
+import { fetchTrendingMovies } from 'js/api';
+// import MoviesList from 'components/MoviesList/MoviesList';
+import React from 'react';
+import { useEffect, useState } from 'react';
+
+const HomePage = () => {
+  const [movies, setMovies] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    newFetchTrendingMovies();
+
+    async function newFetchTrendingMovies() {
+      setLoading(true);
+      try {
+        const resp = await fetchTrendingMovies();
+
+        if (resp.length === 0) {
+          console.log('нуль результатів або помилка');
+          return;
+        }
+        setMovies([...resp]);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }, []);
+
+  return (
+    <>
+      {loading && <Loader />}
+      {!loading && movies && movies.length > 0 && (
+        <MoviesList movies={movies} />
+      )}
+    </>
+  );
+};
+
+export default HomePage;
