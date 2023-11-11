@@ -1,12 +1,16 @@
-import Layout from 'components/Layout/Layout';
+import { Suspense, lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import HomePage from 'pages/HomePage';
-import MoviesPage from 'pages/MoviesPage';
-import MoviesDetails from 'pages/MoviesDetails';
-
-import { Suspense } from 'react';
+import Layout from 'components/Layout/Layout';
 import Loader from './Loader/Loader';
+
+// import HomePage from 'pages/HomePage';
+// import MoviesPage from 'pages/MoviesPage';
+// import MoviesDetails from 'pages/MoviesDetails';
+
+const HomePage = lazy(() => import('pages/HomePage'));
+const MoviesPage = lazy(() => import('pages/MoviesPage'));
+const MoviesDetails = lazy(() => import('pages/MoviesDetails'));
 
 export const App = () => {
   return (

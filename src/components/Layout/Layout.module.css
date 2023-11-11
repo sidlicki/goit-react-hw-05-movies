@@ -1,0 +1,39 @@
+.container {
+  max-width: 1280px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  background-color: rgba(69, 128, 128, 0.877);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.headerContainer {
+  display: flex;
+  gap: 30px;
+}
+.navlink {
+  display: block;
+  background-color: rgb(97, 175, 175);
+  padding: 8px 12px;
+  margin: 8px 0;
+  border-radius: 5px;
+  transition: all 200ms linear;
+}
+.navlink:hover {
+  background-color: rgb(72, 192, 192);
+}
+.navlink:focus {
+  background-color: rgb(72, 192, 192);
+}
+
+.mainContent {
+  margin-top: 66px;
+}

@@ -1,7 +1,6 @@
 import Loader from 'components/Loader/Loader';
 import MoviesList from 'components/MoviesList/MoviesList';
 import { fetchTrendingMovies } from 'js/api';
-// import MoviesList from 'components/MoviesList/MoviesList';
 import React from 'react';
 import { useEffect, useState } from 'react';
 

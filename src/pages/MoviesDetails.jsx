@@ -1,9 +1,8 @@
-import Cast from 'components/Cast/Cast';
 import Loader from 'components/Loader/Loader';
-import Reviews from 'components/Reviews/Reviews';
+import css from './stylesPages/MoviesDetails.module.css';
 
 import { fetchMovieDetails } from 'js/api';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import {
   Link,
   NavLink,
@@ -12,6 +11,11 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom';
+
+// import Cast from 'components/Cast/Cast';
+// import Reviews from 'components/Reviews/Reviews';
+const Cast = lazy(() => import('components/Cast/Cast'));
+const Reviews = lazy(() => import('components/Reviews/Reviews'));
 
 const MoviesDetails = () => {
   const { movieId } = useParams();
@@ -40,12 +44,15 @@ const MoviesDetails = () => {
   return (
     <>
       <div>
-        <Link to={backLinkRef.current}>Go back</Link>
+        <Link className={css.button} to={backLinkRef.current}>
+          Go back
+        </Link>
         {isLoading && <Loader />}
         {movieDetails && (
           <>
-            <div>
+            <div className={css.movieWrapper}>
               <img
+                className={css.image}
                 src={
                   movieDetails.poster_path
                     ? `https://image.tmdb.org/t/p/w400/${movieDetails.poster_path}`
@@ -53,17 +60,19 @@ const MoviesDetails = () => {
                 }
                 alt={movieDetails.title}
               />
-              <ul>
-                <li>
-                  <h2>{movieDetails.title}</h2>
-                  <p>User Score: {movieDetails.vote_average}</p>
+              <ul className={css.movieInfo}>
+                <li className={css.infoItem}>
+                  <h2 className={css.movieTitle}>{movieDetails.title}</h2>
+                  <p className={css.score}>
+                    User Score: {movieDetails.vote_average}
+                  </p>
                 </li>
-                <li>
-                  <h3>Overview</h3>
+                <li className={css.infoItem}>
+                  <h3 className={css.subtitle}>Overview</h3>
                   <p>{movieDetails.overview}</p>
                 </li>
-                <li>
-                  <h3>Genres</h3>
+                <li className={css.infoItem}>
+                  <h3 className={css.subtitle}>Genres</h3>
                   <p>
                     {movieDetails.genres
                       ?.map(genre => {
@@ -74,24 +83,29 @@ const MoviesDetails = () => {
                 </li>
               </ul>
             </div>
-            <div>
-              <h4>Additional information</h4>
-              <ul>
+            <div className={css.wrapperAdditional}>
+              <h4 className={`${css.subtitle} ${css.subtitleAdd}`}>
+                Additional information
+              </h4>
+              <ul className={css.buttonWrapper}>
                 <li>
-                  <NavLink to={`cast`}>Cast</NavLink>
+                  <NavLink className={css.button} to={`cast`}>
+                    Cast
+                  </NavLink>
                 </li>
                 <li>
-                  <NavLink to={`reviews`}>Reviews</NavLink>
+                  <NavLink className={css.button} to={`reviews`}>
+                    Reviews
+                  </NavLink>
                 </li>
               </ul>
+              <Suspense fallback={<Loader />}>
+                <Routes>
+                  <Route path="cast" element={<Cast />} />
+                  <Route path="reviews" element={<Reviews />} />
+                </Routes>
+              </Suspense>
             </div>
-
-            <Suspense fallback={<Loader />}>
-              <Routes>
-                <Route path="cast" element={<Cast />} />
-                <Route path="reviews" element={<Reviews />} />
-              </Routes>
-            </Suspense>
           </>
         )}
       </div>

@@ -2,6 +2,7 @@ import Loader from 'components/Loader/Loader';
 import { fetchMovieReviews } from 'js/api';
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import css from './Reviews.module.css';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -30,9 +31,9 @@ const Reviews = () => {
 
   return (
     <>
-      <h2>
+      <h2 className={css.title}>
         Reviews:
-        <span>
+        <span className={css.button}>
           <Link to={backLinkRef.current}>Hide</Link>
         </span>
       </h2>
@@ -40,12 +41,12 @@ const Reviews = () => {
       {!isLoading && reviews.length === 0 && <h3>There are no reviews.</h3>}
 
       {reviews.length > 0 && (
-        <ul>
+        <ul className={css.list}>
           {reviews.map(review => {
             return (
-              <li key={review.id}>
-                <h3>{review.author}</h3>
-                <p>{review.content}</p>
+              <li className={css.item} key={review.id}>
+                <h3 className={css.author}>@ {review.author}:</h3>
+                <p className={css.reviewContent}>{review.content}</p>
               </li>
             );
           })}

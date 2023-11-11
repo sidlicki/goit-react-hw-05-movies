@@ -3,6 +3,7 @@ import MoviesList from 'components/MoviesList/MoviesList';
 import { fetchMovieByName } from 'js/api';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import css from './stylesPages/MoviesPage.module.css';
 
 const MoviesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,22 +36,26 @@ const MoviesPage = () => {
 
   return (
     <>
-      <div>
-        <form onSubmit={onSearch}>
+      <div className={css.formWrapper}>
+        <form className={css.form} onSubmit={onSearch}>
           <input
+            className={css.input}
             type="text"
             name="searchInput"
             required
             placeholder="Search movies..."
           />
-          <button type="submit">Search</button>
+          <button className={css.button} type="submit">
+            Search
+          </button>
         </form>
       </div>
-      {isLoading && <Loader />}
-      {searchedMovies === null && <h2>Try searching</h2>}
+      {searchedMovies === null && <h2 className={css.title}>Try searching</h2>}
       {searchedMovies !== null && searchedMovies.length === 0 && (
-        <h2>No movies found</h2>
+        <h2 className={css.title}>No movies found</h2>
       )}
+      {isLoading && <Loader />}
+
       {searchedMovies !== null && searchedMovies.length > 0 && (
         <MoviesList movies={searchedMovies} title={'Search result:'} />
       )}

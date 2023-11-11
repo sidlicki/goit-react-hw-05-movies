@@ -1,0 +1,94 @@
+.button {
+  display: block;
+  width: max-content;
+  background-color: rgb(97, 175, 175);
+  padding: 8px 12px;
+  margin-top: 8px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: all 200ms linear;
+}
+.button:hover {
+  background-color: rgb(72, 192, 192);
+}
+.button:focus {
+  background-color: rgb(72, 192, 192);
+}
+
+.movieWrapper {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.image {
+  max-width: 300px;
+  border-radius: 10px;
+}
+
+.movieInfo {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: rgba(51, 128, 128, 0.178);
+  padding: 12px;
+  gap: 20px;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: rgba(51, 128, 128, 0.178);
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.movieTitle {
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+.score {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.subtitle {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+.overview {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+.genres {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.buttonWrapper {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.wrapperAdditional {
+  background-color: rgba(51, 128, 128, 0.178);
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.subtitleAdd {
+  text-align: center;
+}
