@@ -10,9 +10,7 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    newFetchTrendingMovies();
-
-    async function newFetchTrendingMovies() {
+    const newFetchTrendingMovies = async () => {
       setLoading(true);
       try {
         const resp = await fetchTrendingMovies();
@@ -27,14 +25,16 @@ const HomePage = () => {
       } finally {
         setLoading(false);
       }
-    }
+    };
+
+    newFetchTrendingMovies();
   }, []);
 
   return (
     <>
       {loading && <Loader />}
       {!loading && movies && movies.length > 0 && (
-        <MoviesList movies={movies} />
+        <MoviesList movies={movies} title={'Trending today:'} />
       )}
     </>
   );

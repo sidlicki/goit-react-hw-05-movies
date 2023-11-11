@@ -5,22 +5,23 @@ import HomePage from 'pages/HomePage';
 import MoviesPage from 'pages/MoviesPage';
 import MoviesDetails from 'pages/MoviesDetails';
 
-import Cast from 'components/Cast/Cast';
-import Reviews from 'components/Reviews/Reviews';
+import { Suspense } from 'react';
+import Loader from './Loader/Loader';
 
 export const App = () => {
   return (
     <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />} />
-        <Route path="/movies/:movieId" element={<MoviesDetails />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="review" element={<Reviews />} />
-        </Route>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
 
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+          <Route path="/movies" element={<MoviesPage />} />
+
+          <Route path="/movies/:movieId/*" element={<MoviesDetails />} />
+
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Suspense>
     </Layout>
   );
 };
