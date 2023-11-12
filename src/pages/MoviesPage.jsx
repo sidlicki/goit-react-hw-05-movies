@@ -11,9 +11,16 @@ const MoviesPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const queryValue = searchParams.get('query');
 
+  const [searchInputValue, setSearchInputValue] = useState(
+    localStorage.getItem('searchInputValue') || ''
+  );
+
   useEffect(() => {
     const fetchMoviesList = async () => {
-      if (!queryValue) return;
+      if (!queryValue) {
+        setSearchInputValue('');
+        return;
+      }
 
       try {
         setIsLoading(true);
@@ -31,7 +38,11 @@ const MoviesPage = () => {
 
   const onSearch = evt => {
     evt.preventDefault();
-    setSearchParams({ query: evt.currentTarget.elements.searchInput.value });
+    evt.preventDefault();
+    const inputValue = evt.currentTarget.elements.searchInput.value;
+    setSearchParams({ query: inputValue });
+    setSearchInputValue(inputValue);
+    localStorage.setItem('searchInputValue', inputValue);
   };
 
   return (
@@ -44,6 +55,8 @@ const MoviesPage = () => {
             name="searchInput"
             required
             placeholder="Search movies..."
+            value={searchInputValue}
+            onChange={evt => setSearchInputValue(evt.target.value)}
           />
           <button className={css.button} type="submit">
             Search
@@ -57,7 +70,10 @@ const MoviesPage = () => {
       {isLoading && <Loader />}
 
       {searchedMovies !== null && searchedMovies.length > 0 && (
-        <MoviesList movies={searchedMovies} title={'Search result:'} />
+        <MoviesList
+          movies={searchedMovies}
+          title={`Search result for "${queryValue}":`}
+        />
       )}
     </>
   );
